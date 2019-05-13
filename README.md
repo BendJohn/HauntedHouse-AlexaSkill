@@ -1,20 +1,14 @@
 [![Jovo Framework](https://www.jovo.tech/img/github-logo.png)](https://www.jovo.tech)
+#Traits AI
 
-<p align="center">Templates for the <a href="https://github.com/jovotech/jovo-framework-nodejs">Jovo Framework</a> ⭐️</p>
+#Haunted House Escape Room
 
-<p align="center">
-<a href="https://www.jovo.tech/framework/docs/"><strong>Documentation</strong></a> -
-<a href="https://github.com/jovotech/jovo-cli"><strong>CLI </strong></a> - <a href="https://github.com/jovotech/jovo-framework-nodejs/blob/master/CONTRIBUTING.md"><strong>Contributing</strong></a> - <a href="https://twitter.com/jovotech"><strong>Twitter</strong></a></p>
-<br/>
+Jovo/Alexa Skill app that moves a user throughout an escape room.
 
-# Template: Hello World
-
-Jovo Sample Voice App with a simple "Hello World!" + asking for the user's name. This is the default template for the `jovo new` command:
-
+###To Run:
+* Go to this directory
 ```sh
-$ jovo new <directory>
-
-## Alternative
-$ jovo new <directory> --template helloworld
+$ jovo run
 ```
-
+* Add webhook to online AWS account.
+Created by: Ben John
