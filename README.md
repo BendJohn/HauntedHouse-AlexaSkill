@@ -1,10 +1,10 @@
-#Traits AI
+# Traits AI
 
-#Haunted House Escape Room
+# Haunted House Escape Room
 
 Jovo/Alexa Skill app that moves a user throughout an escape room.
 
-###To Run:
+### To Run:
 * Go to this directory
 ```sh
 $ jovo run
