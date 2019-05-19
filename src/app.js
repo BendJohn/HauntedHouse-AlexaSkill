@@ -27,7 +27,10 @@ app.setHandler({
     LAUNCH() {
         let speech = 'You are walking down the sidewalk on a gloomy evening and notice a girl approaching you walking a little white dog.'
         + ' It looks like it might rain any minute. Maybe you should have brought an umbrella. Suddenly, a flash of lightning lights up the sky.'
-        + ' A second later a loud crack of thunder pierces your ears. The girl jumps from excitement and drops the dog’s leash.'
+        + ' A second later a loud crack of thunder pierces your ears.'
+        + '<audio src="soundbank://soundlibrary/nature/amzn_sfx_lightning_strike_01" />'
+        + ' The girl jumps from excitement and drops the dog’s leash.'
+        + '<audio src="soundbank://soundlibrary/animals/amzn_sfx_dog_med_bark_1x_02" />'
         + ' The dog is terrified of the thunder and runs through a metal gate.'
         + '<voice name="Salli"><prosody volume="x-loud" pitch="high"> Puff! Ohhhh Puff! Come here boy!</prosody></voice>'
         + ' She sees you.'
@@ -56,6 +59,7 @@ app.setHandler({
             let reprompt = '';
             let speech = '<voice name="Salli"><prosody volume="soft"> Hello ' + this.$inputs.name.value + '! My dogs name is Puff. He ran right through there.</prosody></voice>'
             + ' She was pointing at a long iron clad gate that shrouded a looming brick house. The sun setting behind the house concocted a spectral picture.'
+            + '<audio src="soundbank://soundlibrary/musical/amzn_sfx_church_bell_1x_01"/>'
             + ' You use a ladder to barely heave yourself over the rusty 12 foot tall iron gate. Sally follows you. You were able to get in, but can you get out?'
             + '<break time="3s"/> You are on the driveway. It was cracked and jagged. Ahead of you, you see the large, wooden front door. To your left you see a garden. Where do you want to go?';
             this.followUpState('DrivewayState').ask(speech, reprompt);
@@ -70,7 +74,8 @@ app.setHandler({
         FrontDoorIntent() {
             if (this.$inputs.key.value == "skeleton key") {
                 let reprompt = 'What should we do now?';
-                let speech = 'The door screeched open. That chandelier above us looks like it is about to fall. Look, there is a dark kitchen up ahead and a living room with an old piano. I think there is a patio back there too. Where should we go?';
+                let speech = '<audio src="soundbank://soundlibrary/foley/amzn_sfx_wooden_door_creaks_long_01"/>'
+                + ' The door screeched open.<voice name="Salli"><prosody volume="soft"> That chandelier above us looks like it is about to fall. Look, there is a dark kitchen up ahead and a living room with an old piano. I think there is a patio back there too.</prosody></voice> Where should we go?';
                 this.followUpState('FrontDoorState').ask(speech, reprompt);
             } else if(this.$inputs.key.value == null) {
                 let reprompt = 'Where to now?';
@@ -119,12 +124,14 @@ app.setHandler({
         },
         KitchenIntent() {
             let speech = 'You step into the kitchen. You stepped on something -- a little taut and squishy. It was too dark to tell what it was.'
-            + '<voice name="Salli"><prosody volume="soft"> What’s that smell? It smells like that dissection we had in class, chemically-infused flesh. Hey, there seems to be a bathroom back there. Do you need to go?</prosody></voice>';
+            + '<voice name="Salli"><prosody volume="soft"> What’s that smell? It smells like that dissection we had in class, chemically-infused flesh. Hey, there seems to be a bathroom back there. Would you like to go?</prosody></voice>';
             let reprompt = 'Where would you like to go? You can go back to the front door, or to the bathroom.';
             this.followUpState('KitchenState').ask(speech, reprompt);
         },
         LivingroomIntent() {
-            let speech = 'You step into the living room. The floor creaks beneath you. It smells = damp and rancid like thawing meat. There a large piano in the center of the room and a unlit fireplace to your left. You squint and notice a closet up ahead. Sally moves toward it.'
+            let speech = 'You step into the living room. The floor creaks beneath you. It smells damp and rancid like thawing meat. There is a large piano in the center of the room and a lit fireplace to your left.'
+            + '<audio src="soundbank://soundlibrary/home/amzn_sfx_fireplace_crackle_03"/>'
+            + ' You squint and notice a closet up ahead. Sally moves toward it.'
             + '<voice name="Salli"><prosody volume="soft"> Ugh the room is jammed shut! We need something to pry it open!</prosody></voice>'
             + ' You also see a set of stairs by the fireplace. Where do you want to go?';
             let reprompt = 'Where would you like to go? You can go back ot the front door, down the stairs, or to the closet.';
@@ -156,9 +163,12 @@ app.setHandler({
         },
         BathroomIntent() {
             let reprompt = 'Where to now? You can go back to the kitchen.';
-            let speech = 'You decide to step into the bathroom. The light switch wasn’t working so you’re forced to use the dim light from the kitchen. There is a silhouette figure in the dark.'
+            let speech = 'You decide to step into the bathroom.'
+            + '<audio src="soundbank://soundlibrary/home/amzn_sfx_faucet_drip_03"/>'
+            + ' The light switch wasn’t working so you’re forced to use the dim light from the kitchen. There is a silhouette figure in the dark.'
             + '<voice name="Salli"><prosody volume="soft"> Oh my gosh is that a.</prosody></voice>'
             + ' Something dropped from the figure.'
+            + '<audio src="soundbank://soundlibrary/foley/amzn_sfx_silverware_clank_03"/>'
             + '<voice name="Salli"><prosody volume="soft"> Look, it\'s a flashlight!</prosody></voice>'
             + ' You use it to look at the figure. It was a grinning skeleton.'
             + '<voice name="Salli"><prosody volume="soft"> Maybe the owner was into anatomy?</prosody></voice>'
@@ -178,7 +188,7 @@ app.setHandler({
             this.followUpState('KitchenState').ask(speech, reprompt);
         },
         Unhandled() {
-            let speech = 'I\'m sorry, I don\'t understand. We can go to the front door.';
+            let speech = 'I\'m sorry, I don\'t understand. We can go to the kitchen.';
             let reprompt = 'Try repeating what you said.';
             this.followUpState('BathroomState').ask(speech, reprompt);
         },
@@ -194,8 +204,9 @@ app.setHandler({
                 let speech = 'You walk over to the closet.'
                 + ' You unlocked the door. You thought it was a closet but there was something more.'
                 + '<voice name="Salli"><prosody volume="soft"> Look there is a small hole here. Maybe it will lead outside!</prosody></voice>'
-                + ' You’re not so sure, but Sally was already was climbing through it. After 5 minutes of crawling through that rusty pipe, you see a light.'
-                + '<voice name="Salli"><prosody volume="soft"> We made it, we’re behind the haunted house! Look there is a Puff, and we could climb over the back gate.</prosody></voice>'
+                + ' You’re not so sure, but Sally was already climbing through it. After 5 minutes of crawling through that rusty pipe, you see a light.'
+                + '<voice name="Salli"><prosody volume="soft"> We made it, we’re behind the haunted house! Look there is Puff, and we could climb over the back gate.</prosody></voice>'
+                + '<audio src="soundbank://soundlibrary/animals/amzn_sfx_dog_med_bark_2x_02"/>'
                 + ' Puff looked very still and scared, but you guys are glad you found him.'
                 + ' You did it. You look back at the haunted house. It looked like a face smiling strangely in the moonlight. You escaped it today but you can’t shake of the feeling that you will be seeing the haunted house again. Congratulations!';
                 this.tell(speech);
@@ -203,11 +214,11 @@ app.setHandler({
                 let reprompt = 'Where to now?';
                 let speech = 'You walk over to the closet. You jostle the knob yourself and see that the door wouldn’t budge. If only you had some tool to help you…. If you do have a tool, say use key name on door.'
                 + '<voice name="Salli"><prosody volume="soft"> Told you it was jammed shut!</prosody></voice>'
-                + ' You can go the stairs you saw earlier or back out to the front door.';
+                + ' You can go to the stairs you saw earlier or back out to the front door.';
                 this.followUpState('LivingroomState').ask(speech, reprompt);
             }
             else {
-                let speech = 'We don\'t have a ' + this.$inputs.key.value + '! If you have found an item, say a knife, you can say use knife on closet. You can go the stairs you saw earlier or back out to the front door.';
+                let speech = 'We don\'t have a ' + this.$inputs.key.value + '! If you have found an item, say a knife, you can say use knife on closet. You can go to the stairs you saw earlier or back out to the front door.';
                 let reprompt = 'Where to now?';
                 this.followUpState('LivingroomState').ask(speech, reprompt);
             }
@@ -227,7 +238,7 @@ app.setHandler({
                 let reprompt = 'Where to now?';
                 let speech = 'You walk over to the stairs. It was an eerie dark black color as you peered down.'
                 + '<voice name="Salli"><prosody volume="soft"> It’s way too dark in there. We’ll have no idea where we’re stepping!</prosody></voice>'
-                + ' You need some sort of light. You can go the closet at the end of the room or back out to the front door.';
+                + ' You need some sort of light. If you have found an item, say a knife, you can say use knife on door. You can go to the closet at the end of the room or back out to the front door.';
                 this.followUpState('LivingroomState').ask(speech, reprompt);
             }
             else {
@@ -244,7 +255,7 @@ app.setHandler({
     },
     StairsState: {
         StairsIntent() {
-            let speech = 'You step back up into the living room and turn off your flashlight. You see the closet and the doorway to the front door.';
+            let speech = 'You step back up into the living room and turn off your flashlight. You see the closet and the doorway to the front door. You now have a skeleton key, flashlight, and crowbar.';
             let reprompt = 'Where to next? You can go to the clost, back down the stairs, or to the front door.';
             this.followUpState('LivingroomState').ask(speech, reprompt);
         },
@@ -254,9 +265,10 @@ app.setHandler({
             + ' You jump back. You ask if she is ok.'
             + '<voice name="Salli"><prosody volume="soft"> Yes, I think so.</prosody></voice>'
             + ' Sally seemed to hate pests, but you were glad she was ok. There doesn’t seem to be anything here, but just as you are turning away, Sally grabs you. Shocked you ask Sally what shes do.'
+            + '<audio src="soundbank://soundlibrary/animals/amzn_sfx_lion_roar_02"/>'
             + 'Her eyes were bloodshot.'
             + '<voice name="Salli"><prosody volume="loud"> Sally doesn’t live here anymore!</prosody></voice>'
-            + ' She proceeds to bite your face. You are too shocked to defend yourself. You feel yourself slipping away, as your consciousness is taken over by some other being. Goodbye cruel world.';
+            + ' She proceeds to bite your face. You are too shocked to defend yourself. You feel yourself slipping away, as your consciousness is taken over some other being. Goodbye cruel world.';
             this.tell(speech);
         },
         Unhandled() {
